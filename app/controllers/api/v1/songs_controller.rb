@@ -10,16 +10,7 @@ module Api
           @songs = Song.all
         end
 
-        # TODO: Sorting code should be extracted
-        if params[:sort] == "random"
-          @sorted_songs = @songs.to_a.shuffle
-        elsif params[:sort] == "reverse"
-          @sorted_songs = @songs.to_a.reverse
-        else
-          @sorted_songs = @songs
-        end
-
-        render json: @sorted_songs
+        render json: @songs.sort(song_params)
       end
 
       def show
@@ -40,9 +31,12 @@ module Api
       end
 
       private
-
       def playlist_song_params
         params.require(:song).permit(:song_id)
+      end
+
+      def song_params
+        params.require(:song).permit(:album_id, :playlist_id)
       end
     end
   end
