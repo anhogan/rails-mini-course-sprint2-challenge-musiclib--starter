@@ -1,8 +1,6 @@
 module Api
   module V1
     class AlbumsController < ApplicationController
-      scope :available, -> { where(available: true).order(:name) }
-      
       def index
         if params[:artist_id].present?
           @albums = Artist.find(params[:artist_id]).albums.available.includes(:songs)
