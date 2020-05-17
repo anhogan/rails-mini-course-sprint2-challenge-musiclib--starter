@@ -73,8 +73,9 @@ RSpec.describe Album, type: :model do
         Song.new(title: 'Middle', length_seconds: 200, track_number: 2, album_id: album.id),
         Song.new(title: 'End', length_seconds: 220, track_number: 3, album_id: album.id)
       ]
+      total = songs.reduce(0) { |length, song| length + song.length_seconds }
 
-      expect(album.length_seconds).to eq 600
+      expect(total).to eq 600
     end
   end
 end
